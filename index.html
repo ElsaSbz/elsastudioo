@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elsa Studioo — Growth Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --ink: #1a2e24;
+  --ink2: #3d5248;
+  --ink3: #8a9e94;
+  --sand: #f9f7f3;
+  --sand2: #eeebe4;
+  --sand3: #ddd8ce;
+  --pine: #1a2e24;
+  --pine2: #2d4a3e;
+  --pine3: #5a7a6a;
+  --gold: #c4a96e;
+  --gold2: #e0cfa8;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--sand);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.4rem 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  mix-blend-mode: normal;
+  transition: background 0.5s;
+}
+nav.scrolled { background: rgba(249,247,243,0.94); backdrop-filter: blur(16px); }
+.nav-logo { text-decoration: none; display: flex; align-items: center; }
+.nav-logo svg { height: 42px; width: auto; }
+.nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+.nav-links a { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--ink2); transition: color 0.3s; }
+.nav-links a:hover { color: var(--pine); }
+.nav-cta { background: var(--pine); color: var(--sand) !important; padding: 0.55rem 1.4rem; border-radius: 1px; transition: background 0.3s !important; }
+.nav-cta:hover { background: var(--pine2) !important; }
+
+.hero {
+  min-height: 100vh;
+  padding: 12rem 5vw 8rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 4rem;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.orb1 { width: 55vw; height: 55vw; background: radial-gradient(circle, rgba(196,169,110,0.14) 0%, transparent 70%); top: -10vw; right: -10vw; }
+.orb2 { width: 30vw; height: 30vw; background: radial-gradient(circle, rgba(26,46,36,0.07) 0%, transparent 70%); bottom: 5vw; left: 0; }
+
+.hero-left { position: relative; z-index: 2; }
+.hero-tag {
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pine3);
+  margin-bottom: 2.5rem;
+}
+.hero-h1 {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 6vw, 7rem);
+  line-height: 0.95;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 2.5rem;
+}
+.hero-h1 em { display: block; font-style: italic; color: var(--pine); }
+.hero-body { font-size: 1rem; color: var(--ink2); font-weight: 300; line-height: 1.8; max-width: 42ch; margin-bottom: 3rem; }
+
+.hero-right { position: relative; z-index: 2; padding-bottom: 1rem; }
+.hero-stats { display: flex; flex-direction: column; gap: 0; }
+.hero-stat {
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--sand3);
+  display: flex; align-items: baseline; gap: 1.25rem;
+}
+.hero-stat:last-child { border-bottom: 1px solid var(--sand3); }
+.stat-num { font-family: var(--serif); font-size: 3.2rem; font-weight: 300; color: var(--pine2); line-height: 1; }
+.stat-label { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3); }
+
+.scroll-hint {
+  position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem; z-index: 2;
+}
+.scroll-line { width: 1px; height: 3rem; background: linear-gradient(to bottom, transparent, var(--sand3)); }
+
+.btn {
+  display: inline-block; text-decoration: none; background: var(--pine); color: var(--sand);
+  padding: 1rem 2.25rem; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 1px; transition: background 0.3s, transform 0.2s;
+}
+.btn:hover { background: var(--pine2); transform: translateY(-1px); }
+.btn-outline {
+  display: inline-block; text-decoration: none; color: var(--ink2);
+  padding: 1rem 0; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border-bottom: 1px solid var(--sand3); transition: color 0.3s, border-color 0.3s;
+}
+.btn-outline:hover { color: var(--pine); border-color: var(--pine); }
+
+.flow {
+  padding: 0 5vw;
+  position: relative;
+}
+
+.manifesto {
+  padding: 8rem 0 10rem;
+  position: relative;
+}
+.manifesto-inner {
+  display: grid; grid-template-columns: 1fr 2.2fr; gap: 6rem; align-items: start;
+}
+.m-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pine3); margin-bottom: 2rem; }
+.m-line { width: 2.5rem; height: 1px; background: var(--gold); display: block; margin-bottom: 1.5rem; }
+.m-quote {
+  font-family: var(--serif); font-size: clamp(1.8rem, 2.8vw, 2.8rem); font-style: italic;
+  font-weight: 300; color: var(--pine2); line-height: 1.4; letter-spacing: -0.01em;
+}
+.m-body p { font-size: 1.05rem; color: var(--ink2); font-weight: 300; line-height: 1.85; margin-bottom: 1.5rem; }
+.m-body p:last-child { margin-bottom: 0; }
+
+.services-zone {
+  padding: 4rem 0 10rem;
+  position: relative;
+}
+.sz-header { margin-bottom: 5rem; }
+.sz-heading {
+  font-family: var(--serif); font-size: clamp(2.4rem, 4vw, 4.5rem);
+  font-weight: 300; line-height: 1.1; color: var(--ink); letter-spacing: -0.02em;
+}
+.sz-heading em { font-style: italic; color: var(--pine); }
+.sz-sub { font-size: 0.95rem; color: var(--ink3); font-weight: 300; max-width: 42ch; margin-top: 1.5rem; line-height: 1.75; }
+
+.services-layout {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem 3rem;
+}
+.svc { position: relative; padding-top: 2rem; }
+.svc::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 1.5rem; height: 1px; background: var(--gold);
+  transition: width 0.4s;
+}
+.svc:hover::before { width: 100%; }
+.svc-num { font-family: var(--serif); font-size: 0.85rem; color: var(--gold); margin-bottom: 1rem; }
+.svc-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 0.75rem; line-height: 1.2; }
+.svc-body { font-size: 0.88rem; color: var(--ink2); font-weight: 300; line-height: 1.75; }
+.svc-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1.25rem; }
+.svc-tag { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pine3); }
+.svc-tag::after { content: '·'; margin-left: 0.35rem; color: var(--sand3); }
+.svc-tag:last-child::after { display: none; }
+
+.dark-zone {
+  background: #1a2e24;
+  padding: 9rem 5vw;
+  position: relative;
+  overflow: hidden;
+}
+.dz-orb1 { position: absolute; width: 40vw; height: 40vw; border-radius: 50%; background: radial-gradient(circle, rgba(196,169,110,0.12) 0%, transparent 70%); top: -10vw; right: -5vw; pointer-events: none; }
+.dz-orb2 { position: absolute; width: 25vw; height: 25vw; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); bottom: -5vw; left: 5vw; pointer-events: none; }
+
+.dz-header { margin-bottom: 5rem; }
+.dz-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+.dz-heading { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 4.2rem); font-weight: 300; color: var(--sand); line-height: 1.1; letter-spacing: -0.02em; }
+.dz-heading em { font-style: italic; color: var(--gold2); }
+
+.pillars {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+}
+.pillar {
+  padding: 3.5rem 3rem 3.5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+}
+.pillar:nth-child(2), .pillar:nth-child(4) { padding-left: 3rem; border-left: 1px solid rgba(255,255,255,0.1); padding-right: 0; }
+.pillar-num { font-family: var(--serif); font-size: 3.5rem; font-weight: 300; color: rgba(196,169,110,0.2); line-height: 1; margin-bottom: 1.5rem; }
+.pillar-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; color: var(--gold2); margin-bottom: 0.85rem; line-height: 1.25; }
+.pillar-body { font-size: 0.88rem; color: rgba(242,237,229,0.6); font-weight: 300; line-height: 1.75; }
+
+.who-zone {
+  padding: 9rem 0 10rem;
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 8rem; align-items: start;
+}
+.wz-left .m-label { margin-bottom: 2rem; }
+.wz-heading { font-family: var(--serif); font-size: clamp(2.2rem, 3.5vw, 4rem); font-weight: 300; line-height: 1.1; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 4rem; }
+.wz-heading em { font-style: italic; color: var(--pine); }
+
+.who-item {
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--sand3);
+}
+.who-item:last-child { border-bottom: 1px solid var(--sand3); }
+.wi-title { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.35rem; }
+.wi-body { font-size: 0.88rem; color: var(--ink3); font-weight: 300; line-height: 1.65; }
+
+.wz-right { padding-top: 2rem; }
+.pull-quote {
+  font-family: var(--serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-style: italic;
+  font-weight: 300; color: var(--pine); line-height: 1.45; position: relative;
+  padding-left: 2rem; margin-bottom: 3rem;
+}
+.pull-quote::before { content: ''; position: absolute; left: 0; top: 0.3em; width: 1px; height: calc(100% - 0.3em); background: var(--gold); }
+.pull-author { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3); padding-left: 2rem; }
+
+.process-zone { padding: 4rem 0 10rem; }
+.pz-header { margin-bottom: 5rem; }
+.process-steps { display: flex; gap: 0; position: relative; margin-top: 3rem; }
+.process-steps::before {
+  content: ''; position: absolute; top: 1.5rem; left: 0; right: 0; height: 1px;
+  background: linear-gradient(to right, var(--sand3), transparent);
+  pointer-events: none;
+}
+.ps { flex: 1; padding: 3rem 2rem 0 0; }
+.ps-num { font-family: var(--serif); font-size: 0.9rem; color: var(--gold); margin-bottom: 1.5rem; display: block; }
+.ps-title { font-size: 0.9rem; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
+.ps-body { font-size: 0.82rem; color: var(--ink3); font-weight: 300; line-height: 1.65; }
+
+.cta-zone {
+  background: #243d32;
+  padding: 10rem 5vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-orb1 { position: absolute; width: 50vw; height: 50vw; border-radius: 50%; background: radial-gradient(circle, rgba(196,169,110,0.08) 0%, transparent 70%); top: -15vw; left: 50%; transform: translateX(-50%); pointer-events: none; }
+.cta-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+.cta-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
+.cta-heading { font-family: var(--serif); font-size: clamp(3rem, 5.5vw, 6rem); font-weight: 300; color: var(--sand); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 2rem; }
+.cta-heading em { display: block; font-style: italic; color: var(--gold2); }
+.cta-body { font-size: 1rem; color: rgba(242,237,229,0.5); font-weight: 300; margin-bottom: 3.5rem; line-height: 1.7; }
+.cta-actions { display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+.btn-cta { background: var(--gold); color: var(--ink) !important; }
+.btn-cta:hover { background: var(--gold2) !important; }
+.btn-ghost-cta { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242,237,229,0.45); text-decoration: none; border-bottom: 1px solid rgba(196,169,110,0.3); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s; }
+.btn-ghost-cta:hover { color: var(--gold2); border-color: var(--gold); }
+
+footer {
+  background: #1a2e24;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2.5rem 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo { text-decoration: none; display: flex; align-items: center; }
+.footer-logo svg { height: 32px; width: auto; }
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: rgba(242,237,229,0.3); transition: color 0.3s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-copy { font-size: 0.72rem; color: rgba(242,237,229,0.2); }
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:9rem 1.5rem 5rem;}
+  .hero-right{display:none;}
+  .flow{padding:0 1.5rem;}
+  .manifesto-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .services-layout{grid-template-columns:1fr;}
+  .dark-zone{padding:6rem 1.5rem;}
+  .pillars{grid-template-columns:1fr;}
+  .pillar:nth-child(2),.pillar:nth-child(4){padding-left:0;border-left:none;}
+  .who-zone{grid-template-columns:1fr;gap:3rem;padding:6rem 0;}
+  .process-steps{flex-direction:column;}
+  .process-steps::before{display:none;}
+  .ps{padding:1.5rem 0 0;}
+  .cta-zone{padding:7rem 1.5rem;}
+  footer{flex-direction:column;gap:1.25rem;text-align:center;}
+}
+.contact-form{
+  max-width:700px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+.form-row{
+  width:100%;
+}
+
+.two-cols{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  padding:1rem 1.2rem;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  color:var(--sand);
+  font-family:var(--sans);
+  font-size:0.95rem;
+  outline:none;
+  transition:.25s;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder{
+  color:rgba(242,237,229,0.45);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus{
+  border-color:var(--gold);
+  background:rgba(255,255,255,0.08);
+}
+
+.contact-form textarea{
+  resize:vertical;
+  min-height:140px;
+}
+
+.contact-form button{
+  align-self:center;
+  cursor:pointer;
+}
+
+.form-status{
+  margin-top:1rem;
+  text-align:center;
+  color:var(--gold2);
+  font-size:.9rem;
+}
+
+@media(max-width:768px){
+  .two-cols{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <svg viewBox="0 0 210 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Elsa Studioo">
+      <!-- two circles symbol -->
+      <circle cx="14" cy="23" r="12" fill="none" stroke="#2d4a3e" stroke-width="1.3"/>
+      <circle cx="29" cy="23" r="12" fill="none" stroke="#c4a96e" stroke-width="1.3"/>
+      <!-- crossover cover + redraw -->
+      <rect x="19" y="11" width="6" height="24" fill="#f9f7f3"/>
+      <path d="M21.5 11 Q25 23 21.5 35" fill="none" stroke="#2d4a3e" stroke-width="1.3"/>
+      <path d="M21.5 11 Q18 23 21.5 35" fill="none" stroke="#c4a96e" stroke-width="1.3"/>
+      <!-- ELSA label -->
+      <text font-family="'Cormorant Garamond', Georgia, serif" font-weight="300" font-size="10" letter-spacing="4.5" fill="#2d4a3e" x="50" y="16">ELSA</text>
+      <!-- studioo -->
+      <text font-family="'Cormorant Garamond', Georgia, serif" font-weight="300" font-size="26" letter-spacing="-0.5" fill="#1c1b18" x="48" y="40">studioo</text>
+      <!-- thin rule under studioo -->
+      <line x1="48" y1="43" x2="210" y2="43" stroke="#d8cfbf" stroke-width="0.5"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#who">Who we serve</a></li>
+    <li><a href="#contact" class="nav-cta">Start a project</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="orb1 hero-orb"></div>
+  <div class="orb2 hero-orb"></div>
+
+  <div class="hero-left">
+    <p class="hero-tag">Growth Studio — Helsinki & Worldwide</p>
+    <h1 class="hero-h1">
+      Small business.<br>
+      <em>World-class growth.</em>
+    </h1>
+    <p class="hero-body">We bring the sharpest consultants in product, growth, and market expansion to businesses that deserve them — not just the ones that can afford a big firm.</p>
+    <div style="display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;">
+      <a href="#contact" class="btn">Talk to us</a>
+      <a href="#services" class="btn-outline">See what we do</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-num">80M+</span>
+        <span class="stat-label">Users on platforms we've grown</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Years of combined expertise</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-num">3×</span>
+        <span class="stat-label">Average client ROI growth</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-num">15+</span>
+        <span class="stat-label">Markets across 3 continents</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="flow">
+
+  <div class="manifesto">
+    <div class="manifesto-inner">
+      <div>
+        <p class="m-label">Why Elsa Studioo</p>
+        <span class="m-line"></span>
+        <blockquote class="m-quote">Small doesn't mean you settle. It means every move needs to count.</blockquote>
+      </div>
+      <div class="m-body">
+        <p>Most growth agencies were built for enterprises — slow cycles, generic playbooks, consultants who've never run a business themselves. We built Elsa Studioo to be different.</p>
+        <p>We're a curated studio of practitioners who have scaled products used by tens of millions, launched into unfamiliar markets, and turned stagnant revenue into compounding growth. Each consultant we bring to your project has lived what they advise.</p>
+        <p>We work with founders and small businesses who want real momentum — not a strategy deck that collects dust. We embed, we execute, and we leave you stronger.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="services-zone" id="services">
+    <div class="sz-header">
+      <p class="m-label">What we do</p>
+      <h2 class="sz-heading">Six ways we<br><em>make you grow.</em></h2>
+      <p class="sz-sub">Every engagement is tailored to your stage, your market, your business — delivered by someone who has done it before.</p>
+    </div>
+
+    <div class="services-layout">
+      <div class="svc">
+        <div class="svc-num">01</div>
+        <h3 class="svc-title">Growth Strategy</h3>
+        <p class="svc-body">Turn scattered marketing into a coherent system. Acquisition and retention models built on evidence, not trends.</p>
+        <div class="svc-tags"><span class="svc-tag">Funnel design</span><span class="svc-tag">Retention</span><span class="svc-tag">CAC/LTV</span><span class="svc-tag">Channel mix</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">02</div>
+        <h3 class="svc-title">Product & Pricing</h3>
+        <p class="svc-body">Find what to build, for whom, and at what price. Escape the feature trap and focus on what drives real revenue.</p>
+        <div class="svc-tags"><span class="svc-tag">PMF</span><span class="svc-tag">Roadmap</span><span class="svc-tag">Pricing models</span><span class="svc-tag">Monetization</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">03</div>
+        <h3 class="svc-title">International Expansion</h3>
+        <p class="svc-body">Enter new markets with confidence. We've done it across Europe, the Middle East, and beyond — from research to first customers.</p>
+        <div class="svc-tags"><span class="svc-tag">Market entry</span><span class="svc-tag">Localization</span><span class="svc-tag">GTM</span><span class="svc-tag">Nordic markets</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">04</div>
+        <h3 class="svc-title">Brand & Digital Presence</h3>
+        <p class="svc-body">Position your business to be remembered. Messaging and digital strategy that attract the right customers and build lasting trust.</p>
+        <div class="svc-tags"><span class="svc-tag">Positioning</span><span class="svc-tag">Content</span><span class="svc-tag">Social</span><span class="svc-tag">SEO</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">05</div>
+        <h3 class="svc-title">Data & Decision Systems</h3>
+        <p class="svc-body">Replace guesswork with clarity. Measurement frameworks and dashboards that help leadership act fast and act right.</p>
+        <div class="svc-tags"><span class="svc-tag">KPIs</span><span class="svc-tag">North Star</span><span class="svc-tag">Dashboards</span><span class="svc-tag">Analytics</span></div>
+      </div>
+      <div class="svc">
+        <div class="svc-num">06</div>
+        <h3 class="svc-title">E-Commerce & Marketplace</h3>
+        <p class="svc-body">We've built and grown marketplaces used by millions. Whether you're launching or stuck, we know the path forward.</p>
+        <div class="svc-tags"><span class="svc-tag">Marketplace ops</span><span class="svc-tag">Conversion</span><span class="svc-tag">Loyalty</span><span class="svc-tag">Fraud reduction</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="dark-zone" id="approach">
+  <div class="dz-orb1"></div>
+  <div class="dz-orb2"></div>
+
+  <div class="dz-header">
+    <p class="dz-label">Our approach</p>
+    <h2 class="dz-heading">How we make<br><em>growth happen.</em></h2>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">I</div>
+      <h3 class="pillar-title">Curated talent, not just capacity</h3>
+      <p class="pillar-body">We don't staff projects with junior consultants. Every specialist we bring has deep domain expertise — in your exact industry and stage — with real outcomes to show for it.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">II</div>
+      <h3 class="pillar-title">Embedded, not just advisory</h3>
+      <p class="pillar-body">We don't hand you a slide deck and disappear. We work alongside your team, in your tools, on your real problems — until the results are showing.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">III</div>
+      <h3 class="pillar-title">Built for international founders</h3>
+      <p class="pillar-body">We understand what it means to build across cultures and markets. Many of our consultants have personally navigated new markets as founders — we bring that lived experience to every project.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">IV</div>
+      <h3 class="pillar-title">Honest, measurable outcomes</h3>
+      <p class="pillar-body">We measure what matters and tell you what's working — even when it's uncomfortable. No vanity metrics. No endless scoping phases. We move fast and optimize for real business impact.</p>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+
+  <div class="who-zone" id="who">
+    <div class="wz-left">
+      <p class="m-label">Who we work with</p>
+      <h2 class="wz-heading">Businesses that<br>want to <em>move faster.</em></h2>
+
+      <div class="who-item">
+        <div class="wi-title">Immigrant & international founders</div>
+        <p class="wi-body">Building in a new market is hard. We've done it. We help you navigate unfamiliar terrain with cross-cultural fluency and insider knowledge.</p>
+      </div>
+      <div class="who-item">
+        <div class="wi-title">Small businesses ready to scale</div>
+        <p class="wi-body">You've found something that works. Now you need the strategy and systems to grow without breaking what made you good.</p>
+      </div>
+      <div class="who-item">
+        <div class="wi-title">Digital-first startups</div>
+        <p class="wi-body">From PMF to growth engine — we help you find the levers that actually move the needle, and move them quickly.</p>
+      </div>
+      <div class="who-item">
+        <div class="wi-title">Traditional businesses going digital</div>
+        <p class="wi-body">Going online is an opportunity, not just a threat — if you do it right. We'll make sure you do.</p>
+      </div>
+    </div>
+
+    <div class="wz-right">
+      <blockquote class="pull-quote">Our digital marketing ROI increased by 300% in six months. They don't just advise — they execute. Working with this team was the real turning point for us.</blockquote>
+      <p class="pull-author">CEO, Helsinki — e-commerce client</p>
+
+      <div style="margin-top:4rem;">
+        <p class="m-label" style="margin-bottom:2.5rem;">How we work together</p>
+        <div class="process-steps">
+          <div class="ps"><span class="ps-num">I</span><div class="ps-title">Discovery call</div><p class="ps-body">30 minutes to understand your goals and where you're stuck.</p></div>
+          <div class="ps"><span class="ps-num">II</span><div class="ps-title">Tailored proposal</div><p class="ps-body">A scope built for your situation — no generic packages.</p></div>
+          <div class="ps"><span class="ps-num">III</span><div class="ps-title">Expert match</div><p class="ps-body">Right consultants for your domain and stage.</p></div>
+          <div class="ps"><span class="ps-num">IV</span><div class="ps-title">Execution</div><p class="ps-body">Embedded work — measuring, iterating, delivering.</p></div>
+          <div class="ps"><span class="ps-num">V</span><div class="ps-title">Handoff</div><p class="ps-body">Stronger systems and a team that knows how to use them.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<section class="cta-zone" id="contact">
+  <div class="cta-orb1"></div>
+
+  <div class="cta-inner">
+
+    <p class="cta-label">CONTACT US</p>
+
+    <h2 class="cta-heading">
+      Let's discuss your<br>
+      <em>next growth move.</em>
+    </h2>
+
+    <p class="cta-body">
+      Whether you're launching, scaling, entering a new market, or improving growth,
+      tell us about your goals. We'll review your request and get back to you within 24 hours.
+    </p>
+
+    <form id="contactForm" class="contact-form">
+
+      <div class="form-row">
+        <input
+          type="text"
+          name="from_name"
+          placeholder="Full Name *"
+          required
+        >
+      </div>
+
+      <div class="form-row two-cols">
+
+        <input
+          type="email"
+          name="from_email"
+          placeholder="Email Address *"
+          required
+        >
+
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone Number"
+        >
+
+      </div>
+
+      <div class="form-row">
+        <textarea
+          name="message"
+          placeholder="Tell us about your business, goals, challenges or project..."
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-cta">
+        Request a Consultation
+      </button>
+
+      <div id="formStatus" class="form-status"></div>
+
+    </form>
+
+  </div>
+</section>
+
+<footer>
+  <a class="footer-logo" href="#">
+    <svg viewBox="0 0 210 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Elsa Studioo">
+      <!-- two circles symbol — light on dark -->
+      <circle cx="14" cy="23" r="12" fill="none" stroke="rgba(242,237,229,0.4)" stroke-width="1.3"/>
+      <circle cx="29" cy="23" r="12" fill="none" stroke="#c4a96e" stroke-width="1.3"/>
+      <rect x="19" y="11" width="6" height="24" fill="#1c1b18"/>
+      <path d="M21.5 11 Q25 23 21.5 35" fill="none" stroke="rgba(242,237,229,0.4)" stroke-width="1.3"/>
+      <path d="M21.5 11 Q18 23 21.5 35" fill="none" stroke="#c4a96e" stroke-width="1.3"/>
+      <!-- ELSA -->
+      <text font-family="'Cormorant Garamond', Georgia, serif" font-weight="300" font-size="10" letter-spacing="4.5" fill="rgba(196,169,110,0.7)" x="50" y="16">ELSA</text>
+      <!-- studioo -->
+      <text font-family="'Cormorant Garamond', Georgia, serif" font-weight="300" font-size="26" letter-spacing="-0.5" fill="rgba(242,237,229,0.85)" x="48" y="40">studioo</text>
+      <line x1="48" y1="43" x2="210" y2="43" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+    </svg>
+  </a>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#who">Who we serve</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Elsa Studioo · Helsinki & worldwide</p>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init("Rc_y2F_UNRbHZnUKO");
+
+const form = document.getElementById("contactForm");
+const status = document.getElementById("formStatus");
+
+form.addEventListener("submit", async (e) => {
+
+  e.preventDefault();
+
+  status.innerText = "Sending your request...";
+
+  try {
+
+    await emailjs.sendForm(
+      "service_87fp47r",
+      "template_402idwf",
+      form
+    );
+
+    status.innerText =
+      "Thank you. We've received your request and will contact you shortly.";
+
+    form.reset();
+
+  } catch (error) {
+
+    console.error(error);
+
+    status.innerText =
+      "Something went wrong. Please try again later.";
+
+  }
+
+});
+</script>
+</body>
+</html>
